@@ -29,7 +29,7 @@ echo "The Bomb as been planted"
 
 torify curl -s -u admin:secret -H "Cookie: PHPSESSID=hey" -H "Referer: muchprotection" $1/app/img/wifi-qr-code.php > Boom.svg
 
-inkscape --without-gui --export-type="png" Boom.svg 2>/dev/null
+inkscape --export-type="png" Boom.svg 2>/dev/null
 
 echo "BOOM !!"
 echo ""
