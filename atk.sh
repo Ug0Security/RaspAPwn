@@ -19,7 +19,7 @@ echo "Well Terrorists win anyway i guess.. check your listener"
 else
 
 echo "" 
-echo "Verison too old"
+echo "Version too old i guess"
 
 fi
 
