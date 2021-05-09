@@ -3,6 +3,7 @@ https://github.com/RaspAP/raspap-webgui/
 
 unauthent Wifi password leak
 Authenticated RCE (funny QRCode output)
+Unauthenticated RCE (yep yep :p)
 
 i didn't reported it, don't care about CVE
 
