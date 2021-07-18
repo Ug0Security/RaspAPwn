@@ -19,7 +19,7 @@ echo "Well Terrorists win anyway i guess.. check your listener"
 else
 
 echo "" 
-echo "Version too old i guess"
+echo "Version too old or patched (> 2.6.6)"
 
 fi
 
